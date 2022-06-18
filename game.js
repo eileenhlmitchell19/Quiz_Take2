@@ -1,4 +1,5 @@
 var questionsEl = document.getElementById('questions');
+var correctAnswerEl = document.querySelector(".correct");
 
 // Selects element by class
 var timeEl = document.querySelector(".time");
@@ -7,18 +8,27 @@ var questions = [
     {
         question: "What's your favorite color?",
         multipleChoiceOptions: [
-            "Yellow",
-            "Green",
-            "Blue",
-            "Pink"
+            {choice: "Yellow", value:false},
+            {choice:"Green", value:true},
+            {choice:"Blue", value:false},
+            {choice:"Pink", value:false},
         ],
-        correct: "Green"
-    }
+    },
+    // {
+    //     question: "What's your food color?",
+    //     multipleChoiceOptions: [
+    //         "Yellow",
+    //         "Green",
+    //         "Blue",
+    //         "Pink"
+    //     ],
+    //     correct: "blie"
+    // },
 ];
 
 
 //--------------------------------NEXT QUESTION------------------------------//
-var questionPointer = 0;
+var questionPointer = [0];
 
 function nextQuestion(){
     questionPointer++;
@@ -37,7 +47,7 @@ function setTime() {
         // Stops execution of action at set interval
         clearInterval(timerInterval);
         // Calls function to create and append image
-        sendMessage();
+        // sendMessage();
       }
   
     }, 1000);
@@ -50,13 +60,16 @@ function answerQuestion(event){
     //Which answer the choice (which button)
     var buttonEl = event.target;
     var answer = buttonEl.dataset.answer;
+    
 
     console.log(answer);
 
     //Compare 'answer' to the "current question" answer
     var currentQuestion = questions[questionPointer];
     
-    if ( answer ===  questions[questionPointer].correct) {
+        
+        
+    if ( answer ===  currentQuestion.multipleChoiceOptions.value) {
 
     }
     console.log(answer);
