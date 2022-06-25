@@ -1,42 +1,56 @@
-var questionsEl = document.getElementById('questions');
-var correctAnswerEl = document.querySelector(".correct");
+let gameStarted = false;
+let secondsLeft = 60;
+let questionPointer = 0;
+
+//render question answers from javascript - options
+//register whether they clicked the right one
+//end the game at some point
+//make 1 question long and detect its that long"good job! otherwise you got it wrong
+
 
 // Selects element by class
-var timeEl = document.querySelector(".time");
+let timeEl = document.querySelector(".time");
+let questionsEl = document.getElementById('questions');
+let correctAnswerEl = document.querySelector(".correct");
+let promptEl = document.getElementById("prompt");
+
+
 //-------------------------------QUESTIONS ARRAY------------------------------//
-var questions = [
+let questions = [
     {
         question: "What's your favorite color?",
         multipleChoiceOptions: [
-            {choice: "Yellow", value:false},
-            {choice:"Green", value:true},
-            {choice:"Blue", value:false},
-            {choice:"Pink", value:false},
+            "Yellow",
+            "Green",
+            "Blue",
+            "Pink"
         ],
+        correct: "Green"
     },
-    // {
-    //     question: "What's your food color?",
-    //     multipleChoiceOptions: [
-    //         "Yellow",
-    //         "Green",
-    //         "Blue",
-    //         "Pink"
-    //     ],
-    //     correct: "blie"
-    // },
+    {
+        question: "What's your food color?",
+        multipleChoiceOptions: [
+            "Yellow",
+            "Green",
+            "Blue",
+            "Pink"
+        ],
+        correct: "Blue"
+    },
 ];
 
 
 //--------------------------------NEXT QUESTION------------------------------//
-var questionPointer = [0];
+
 
 function nextQuestion(){
     questionPointer++;
     //Display
+    render();
 };
 
 //---------------------------------TIMER------------------------------------//
-var secondsLeft = 60;
+
 function setTime() {
     // Sets interval in variable
     var timerInterval = setInterval(function() {
@@ -53,7 +67,6 @@ function setTime() {
     }, 1000);
   }
 
-setTime();
 
 //------------------------------ANSWER QUESTION----------------------------//
 function answerQuestion(event){
@@ -65,8 +78,8 @@ function answerQuestion(event){
     console.log(answer);
 
     //Compare 'answer' to the "current question" answer
-    var currentQuestion = questions[questionPointer];
-    
+    let currentQuestion = questions[questionPointer];
+    console.log(questionPointer, questions)
         
         
     if ( answer ===  currentQuestion.multipleChoiceOptions.value) {
@@ -81,6 +94,38 @@ function answerQuestion(event){
 
     //ELSE
 }
+
+const startButton = document.getElementById("1");
+startButton.addEventListener("click", event => {
+startQuiz();
+
+
+
+})
+
+function startQuiz(event){
+console.log("start quiz")
+
+gameStarted = true;
+render();
+
+
+setTime();
+}
+
+
+function render(){
+if(gameStarted){
+    startButton.style.visibility = "hidden";
+
+} else {
+    startButton.style.visibility = "visible";
+}
+
+promptEl.innerHTML = questions[questionPointer].question;
+
+}
+
 
 //---------------------------EVENT LISTENER------------------------------//
 questionsEl.addEventListener( "click", answerQuestion );
